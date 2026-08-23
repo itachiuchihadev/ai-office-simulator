@@ -29,7 +29,7 @@
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/your-username/AI-Office-Simulator.git
+git clone https://github.com/itachiuchihadev/ai-office-simulator.git
 
 # Navigate to project folder
 cd AI-Office-Simulator
