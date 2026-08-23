@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32" width="64" height="32" shape-rendering="crispEdges">
+  <!-- Outer Beveled Arcade Cartridge Frame -->
+  <rect x="0" y="0" width="64" height="32" fill="#04060a"/>
+  <rect x="1" y="1" width="62" height="30" fill="#0b0e14" stroke="#38bdf8" stroke-width="1"/>
+  <rect x="2" y="2" width="60" height="28" fill="#121824"/>
+  
+  <!-- Subtle CRT Scanline Grid -->
+  <line x1="2" y1="6" x2="62" y2="6" stroke="#1a2234" stroke-width="1"/>
+  <line x1="2" y1="12" x2="62" y2="12" stroke="#1a2234" stroke-width="1"/>
+  <line x1="2" y1="18" x2="62" y2="18" stroke="#1a2234" stroke-width="1"/>
+  <line x1="2" y1="24" x2="62" y2="24" stroke="#1a2234" stroke-width="1"/>
+
+  <!-- Top Left/Right Corner Pixel Screws -->
+  <rect x="3" y="3" width="2" height="2" fill="#38bdf8"/>
+  <rect x="59" y="3" width="2" height="2" fill="#38bdf8"/>
+  <rect x="3" y="27" width="2" height="2" fill="#38bdf8"/>
+  <rect x="59" y="27" width="2" height="2" fill="#38bdf8"/>
+
+  <!-- ══════ LETTER 'A' (x: 8 to 20, y: 8 to 24) ══════ -->
+  <!-- Top Bar -->
+  <rect x="11" y="8" width="6" height="3" fill="#38bdf8"/>
+  <!-- Left Column -->
+  <rect x="8" y="10" width="3" height="13" fill="#38bdf8"/>
+  <!-- Right Column -->
+  <rect x="17" y="10" width="3" height="13" fill="#38bdf8"/>
+  <!-- Middle Crossbar -->
+  <rect x="11" y="15" width="6" height="3" fill="#38bdf8"/>
+  <!-- Center Highlight / Neon Core -->
+  <rect x="12" y="16" width="4" height="1" fill="#ffffff"/>
+
+  <!-- DOT 1 '.' (x: 21, y: 20 to 23) -->
+  <rect x="21" y="20" width="3" height="3" fill="#facc15"/>
+  <rect x="22" y="21" width="1" height="1" fill="#ffffff"/>
+
+  <!-- ══════ LETTER 'I' (x: 26 to 34, y: 8 to 24) ══════ -->
+  <!-- Top Serif Bar -->
+  <rect x="26" y="8" width="8" height="3" fill="#38bdf8"/>
+  <!-- Center Vertical Column -->
+  <rect x="29" y="11" width="3" height="9" fill="#38bdf8"/>
+  <!-- Bottom Serif Bar -->
+  <rect x="26" y="20" width="8" height="3" fill="#38bdf8"/>
+  <!-- Center Highlight -->
+  <rect x="30" y="10" width="1" height="11" fill="#ffffff"/>
+
+  <!-- DOT 2 '.' (x: 36, y: 20 to 23) -->
+  <rect x="36" y="20" width="3" height="3" fill="#facc15"/>
+  <rect x="37" y="21" width="1" height="1" fill="#ffffff"/>
+
+  <!-- ══════ LETTER 'O' (x: 41 to 53, y: 8 to 24) ══════ -->
+  <!-- Top Bar -->
+  <rect x="43" y="8" width="8" height="3" fill="#38bdf8"/>
+  <!-- Left Column -->
+  <rect x="41" y="10" width="3" height="11" fill="#38bdf8"/>
+  <!-- Right Column -->
+  <rect x="50" y="10" width="3" height="11" fill="#38bdf8"/>
+  <!-- Bottom Bar -->
+  <rect x="43" y="20" width="8" height="3" fill="#38bdf8"/>
+  <!-- Core Highlight -->
+  <rect x="44" y="9" width="6" height="1" fill="#ffffff"/>
+
+  <!-- DOT 3 '.' (x: 55, y: 20 to 23) -->
+  <rect x="55" y="20" width="3" height="3" fill="#22c55e"/>
+  <rect x="56" y="21" width="1" height="1" fill="#ffffff"/>
+</svg>
