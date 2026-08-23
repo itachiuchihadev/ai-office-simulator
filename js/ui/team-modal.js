@@ -1,6 +1,7 @@
 // js/ui/team-modal.js — Interactive Subagent Management & Prompt Configuration Modal
 
 import { loadSubagents, saveSubagents, DEFAULT_SUBAGENTS, AVAILABLE_SPRITES } from '../agents/subagent-manager.js';
+import { escapeHtml } from '../utils.js';
 
 export function setupTeamModal() {
   const toggleBtn = document.getElementById('teamSetupToggle');
@@ -221,7 +222,3 @@ function showToast(msg) {
   }, 2500);
 }
 
-function escapeHtml(str) {
-  if (!str) return '';
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}

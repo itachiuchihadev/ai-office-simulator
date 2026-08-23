@@ -46,7 +46,7 @@ export function initCanvasSize() {
 export function setZoom(newZoom) {
   state.zoom = Math.min(2.5, Math.max(0.5, newZoom));
   initCanvasSize();
-  const zoomText = document.getElementById('zoomLevelText');
+  const zoomText = document.getElementById('zoomDisplay') || document.getElementById('zoomLevelText');
   if (zoomText) {
     zoomText.textContent = `${Math.round(state.zoom * 100)}%`;
   }
