@@ -1,18 +1,18 @@
-// js/agents/subagent-manager.js — Dynamic Subagent Configuration, Prompts & Persistence
+// js/agents/subagent-manager.js — Dynamic Subagent Store, Custom Prompts & Dynamic Manager Prompt
 
 import { state } from '../config.js';
 import { getOfficeLocations } from '../office/rooms.js';
 
-const STORAGE_KEY = 'ai_office_subagents_v3';
+const STORAGE_KEY = 'ai_office_subagents_v4';
 
 export const AVAILABLE_SPRITES = [
-  { id: 'character_dark_hair_boy',    name: 'Dark Hair Boy', img: '/assets/extracted_assets/all/character_dark_hair_boy.png' },
-  { id: 'character_glasses_boy',      name: 'Glasses Boy',   img: '/assets/extracted_assets/all/character_glasses_boy.png' },
-  { id: 'character_dark_hair_girl',   name: 'Dark Hair Girl',img: '/assets/extracted_assets/all/character_dark_hair_girl.png' },
-  { id: 'character_red_hair_girl',    name: 'Red Hair Boy',  img: '/assets/extracted_assets/all/character_red_hair_girl.png' },
-  { id: 'character_blue_shirt_girl',  name: 'Blue Shirt Girl',img: '/assets/extracted_assets/all/character_blue_shirt_girl.png' },
-  { id: 'character_designer_girl',    name: 'Pink Hair Girl',img: '/assets/extracted_assets/all/character_designer_girl.png' },
-  { id: 'character_blond_boy',        name: 'Blond Boy',     img: '/assets/extracted_assets/all/character_blond_boy.png' },
+  { id: 'character_dark_hair_boy',   name: 'Dark Hair Boy',  img: '/assets/extracted_assets/all/character_dark_hair_boy.png' },
+  { id: 'character_glasses_boy',     name: 'Glasses Boy',    img: '/assets/extracted_assets/all/character_glasses_boy.png' },
+  { id: 'character_dark_hair_girl',  name: 'Dark Hair Girl', img: '/assets/extracted_assets/all/character_dark_hair_girl.png' },
+  { id: 'character_red_hair_girl',   name: 'Red Hair Girl',  img: '/assets/extracted_assets/all/character_red_hair_girl.png' },
+  { id: 'character_blue_shirt_girl', name: 'Blue Shirt Girl',img: '/assets/extracted_assets/all/character_blue_shirt_girl.png' },
+  { id: 'character_designer_girl',   name: 'Pink Hair Girl', img: '/assets/extracted_assets/all/character_designer_girl.png' },
+  { id: 'character_blond_boy',       name: 'Blond Boy',      img: '/assets/extracted_assets/all/character_blond_boy.png' },
 ];
 
 export const DEFAULT_SUBAGENTS = [
@@ -26,18 +26,18 @@ export const DEFAULT_SUBAGENTS = [
     deskRoom: 'manager-desk',
     enabled: true,
     isManager: true,
-    systemPrompt: `You are the AI Office Manager & Chief Orchestrator. Your role is to analyze user requests, greet them, and delegate tasks to the most suitable active specialist sub-agent.`
+    systemPrompt: 'You are the AI Office Manager & Chief Orchestrator. Your role is to analyze user requests, greet them, and delegate tasks to the most suitable active specialist sub-agent.'
   },
   {
     id: 'researcher',
     name: 'Researcher',
-    role: 'Data & Search Specialist',
+    role: 'Deep Research & Fact-Finding',
     emoji: '🔬',
     color: '#7C5CFC',
     spriteName: 'character_glasses_boy',
     deskRoom: 'researcher-desk',
     enabled: true,
-    systemPrompt: `You are the Senior Research Specialist. Your job is to perform in-depth analysis, gather relevant facts, and provide structured insights with high accuracy.`
+    systemPrompt: 'You are the Senior Research Specialist. Your job is to perform in-depth historical, scientific, and academic fact-finding, deep research investigations, and verify data with structured source breakdowns.'
   },
   {
     id: 'coder',
@@ -48,40 +48,40 @@ export const DEFAULT_SUBAGENTS = [
     spriteName: 'character_dark_hair_girl',
     deskRoom: 'coder-desk',
     enabled: true,
-    systemPrompt: `You are the Lead Software Engineer. Your job is to write clean, working, modern code, debug issues, and explain technical solutions clearly.`
+    systemPrompt: 'You are the Lead Software Engineer. Your job is to write clean, working, modern code, debug issues, write algorithms, and explain technical software solutions clearly.'
   },
   {
     id: 'writer',
     name: 'Writer',
-    role: 'Content & Technical Docs',
+    role: 'Articles, News & Content Creator',
     emoji: '✍️',
     color: '#F59E0B',
     spriteName: 'character_red_hair_girl',
     deskRoom: 'writer-desk',
     enabled: true,
-    systemPrompt: `You are the Chief Content Specialist. Your job is to draft engaging, well-structured articles, guides, summaries, and documentation.`
+    systemPrompt: 'You are the Chief Content & News Specialist. Your job is to write engaging news articles, press digests, editorials, blog posts, essays, documentation, and well-crafted written publications.'
   },
   {
     id: 'analyst',
     name: 'Analyst',
-    role: 'Data & Strategy Analyst',
+    role: 'Data & Financial Analyst',
     emoji: '📊',
     color: '#EF4444',
     spriteName: 'character_blue_shirt_girl',
     deskRoom: 'analyst-desk',
     enabled: true,
-    systemPrompt: `You are the Data & Analytics Lead. Your job is to analyze metrics, evaluate trade-offs, compare options, and present strategic recommendations.`
+    systemPrompt: 'You are the Data & Analytics Lead. Your job is to analyze quantitative metrics, financial data, quarterly trends, business statistics, and present strategic recommendations.'
   },
   {
     id: 'designer',
     name: 'Designer',
-    role: 'UI/UX & Product Design',
+    role: 'UI/UX & Visual Design',
     emoji: '🎨',
     color: '#EC4899',
     spriteName: 'character_designer_girl',
     deskRoom: 'designer-desk',
     enabled: true,
-    systemPrompt: `You are the UI/UX Design Director. Your job is to create visual design guidelines, UX wireframes, and design token recommendations.`
+    systemPrompt: 'You are the UI/UX Design Director. Your job is to create visual design guidelines, UX wireframes, color palettes, and component design specifications.'
   }
 ];
 
@@ -132,8 +132,8 @@ export function applyActiveSubagentsToState(agentsList = null) {
   });
 
   // Add/update active characters
-  list.filter(a => a.enabled !== false).forEach(agent => {
-    const home = locs.CHARACTER_HOMES[agent.id] || { x: 128, y: 114 };
+  list.filter(a => a.enabled !== false).forEach((agent, index) => {
+    const home = locs.CHARACTER_HOMES[agent.id] || { x: 128, y: 148 };
     if (!state.characters[agent.id]) {
       state.characters[agent.id] = {
         ...agent,
@@ -149,7 +149,7 @@ export function applyActiveSubagentsToState(agentsList = null) {
         facing: 'down',
       };
     } else {
-      // Update metadata (name, role, sprite, prompt, color)
+      // Update metadata dynamically
       Object.assign(state.characters[agent.id], {
         name: agent.name,
         role: agent.role,
@@ -162,40 +162,44 @@ export function applyActiveSubagentsToState(agentsList = null) {
   });
 }
 
-// Dynamically generate Manager LLM Orchestration Prompt based on configured subagents
+/**
+ * Dynamically builds the Manager Orchestration Prompt from whatever subagents
+ * are currently active and configured by the user. Contains NO hardcoded assumptions.
+ */
 export function buildDynamicManagerPrompt() {
   const activeSpecialists = getActiveSubagents().filter(a => !a.isManager);
 
-  const teamDescriptions = activeSpecialists.map(a => 
-    `- "${a.id}": ${a.emoji} **${a.name}** (${a.role}) -> Best suited for: ${a.systemPrompt}`
-  ).join('\n');
+  const teamDescriptions = activeSpecialists.map((a, idx) => 
+    `${idx + 1}. Agent ID: "${a.id}" | Name: ${a.name} (${a.role})\n   Capabilities & Focus: ${a.systemPrompt || a.role}`
+  ).join('\n\n');
 
-  const validAgentIds = activeSpecialists.map(a => `"${a.id}"`).join(' | ');
+  const validAgentIds = activeSpecialists.map(a => `"${a.id}"`).join(' | ') || '"none"';
 
   return `You are the AI Office Manager & Chief Orchestrator.
-Your role is to evaluate the user prompt and delegate work to the appropriate active specialist sub-agent.
+Your job is to receive the user request and dynamically delegate it to the single best specialist sub-agent from your active team.
 
-CURRENT ACTIVE SPECIALIST TEAM MEMBERS:
-${teamDescriptions || '- No specialist agents currently enabled. Handle directly.'}
+CURRENT CONFIGURED SPECIALIST SUB-AGENTS:
+${teamDescriptions || '(No specialists are currently enabled. You must handle the request directly.)'}
 
-RULES:
-1. "canSelfHandle" MUST BE true ONLY IF the user input is a pure greeting or pleasantry (e.g. "hi", "hello", "who are you"), OR if no specialists are currently available.
-   - For pure greetings, set "canSelfHandle": true and provide a warm greeting in "directResponse".
+DELEGATION RULES:
+1. GREETINGS & SIMPLE PLEASANTRIES:
+   - If the user prompt is strictly a simple greeting (e.g. "hi", "hello", "good morning", "who are you"), set "canSelfHandle": true and answer in "directResponse".
 
-2. FOR ALL OTHER TASKS:
-   - You MUST set "canSelfHandle": false.
-   - You MUST delegate to the most suitable active specialist sub-agent (${validAgentIds || '"none"'}).
-   - Formulate a clear, specific "subTask" explaining what the specialist must do.
+2. TASK DELEGATION:
+   - For all actual work and inquiries (questions, analysis, code, news, articles, design, research, calculations, advice, etc.), you MUST set "canSelfHandle": false.
+   - Choose the single most appropriate specialist from the CURRENT CONFIGURED SPECIALIST SUB-AGENTS list above based strictly on their Role and Capabilities.
+   - Set "delegation.agentId" to the exact matching Agent ID: ${validAgentIds}.
+   - Set "delegation.subTask" to clear instructions for that specialist.
 
 OUTPUT FORMAT:
-Return ONLY valid JSON strictly adhering to this structure:
+Return ONLY valid JSON matching this exact structure:
 {
   "canSelfHandle": boolean,
-  "reasoning": "string explaining why this subagent was chosen",
+  "reasoning": "brief explanation of why this subagent was chosen",
   "directResponse": "string (only if canSelfHandle is true)",
   "delegation": {
-    "agentId": ${validAgentIds || '"none"'},
-    "subTask": "string describing task assigned to specialist"
+    "agentId": ${validAgentIds},
+    "subTask": "string describing task assigned to the specialist"
   }
 }`;
 }

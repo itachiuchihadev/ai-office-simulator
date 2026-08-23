@@ -1,5 +1,3 @@
-// js/agents/workflow.js — Manager Orchestration & Dynamic Sub-Agent Workflow Coordinator
-
 import { state } from '../config.js';
 import { truncate } from '../utils.js';
 import { getOfficeLocations } from '../office/rooms.js';
@@ -7,6 +5,7 @@ import { getActiveSubagents, buildDynamicManagerPrompt } from './subagent-manage
 import { moveCharacterTo, moveCharacterHome, showSpeechBubble } from '../office/characters.js';
 import { addChatMessage } from '../chat/chat-ui.js';
 import { LLMClient } from '../api/llm-client.js';
+import { ManagerDelegationSchema } from '../api/schemas.js';
 import { getStoredApiKeys } from '../ui/settings-modal.js';
 
 export async function runWorkflow(userMessage) {
@@ -33,29 +32,21 @@ export async function runWorkflow(userMessage) {
   const activeSpecialists = getActiveSubagents().filter(a => !a.isManager);
 
   try {
-    // ── STEP 1: Manager receives prompt and evaluates task dynamically ──
-    showSpeechBubble('manager', 'Analyzing task...', 3000);
+    // ── STEP 1: Manager receives prompt & executes Native Structured Output LLM Evaluation ──
+    showSpeechBubble('manager', 'Evaluating task...', 3000);
     if (state.characters['manager']) {
       state.characters['manager'].state = 'working';
     }
 
     const dynamicManagerPrompt = buildDynamicManagerPrompt();
-    const managerEvalResponse = await llm.chat(
+    const schema = new ManagerDelegationSchema(activeSpecialists.map(a => a.id));
+
+    // Native schema constrained call (Gemini responseSchema / OpenAI json_schema)
+    const plan = await llm.chatStructured(
       [{ role: 'user', content: userMessage }],
+      schema,
       dynamicManagerPrompt
     );
-
-    let plan = null;
-    try {
-      const jsonMatch = managerEvalResponse.match(/\{[\s\S]*\}/);
-      if (jsonMatch) plan = JSON.parse(jsonMatch[0]);
-    } catch (e) {
-      console.warn('Could not parse Manager JSON evaluation:', e);
-    }
-
-    if (!plan) {
-      plan = { canSelfHandle: true, directResponse: managerEvalResponse };
-    }
 
     // ── CASE A: Manager handles task directly ──
     if (plan.canSelfHandle || activeSpecialists.length === 0) {
@@ -64,17 +55,19 @@ export async function runWorkflow(userMessage) {
       setTimeout(() => {
         if (state.characters['manager']) state.characters['manager'].state = 'talking';
         const finalAnswer = plan.directResponse || managerEvalResponse;
-        addChatMessage('ai', finalAnswer, 'ai', 'character_dark_hair_boy');
+        addChatMessage('Manager', finalAnswer, 'ai', 'character_dark_hair_boy');
         if (state.characters['manager']) state.characters['manager'].state = 'idle';
         state.demoRunning = false;
       }, 1500);
       return;
     }
 
-    // ── CASE B: Manager delegates to configured specialist sub-agent ──
+    // ── CASE B: Manager delegates to the specific sub-agent chosen by LLM ──
     const locs = getOfficeLocations();
     const targetAgentId = plan.delegation?.agentId;
     const subTask = plan.delegation?.subTask || userMessage;
+
+    // Strictly match whichever subagent ID the Manager LLM selected
     const specialistAgent = activeSpecialists.find(a => a.id === targetAgentId) || activeSpecialists[0];
     const specialistHome = locs.CHARACTER_HOMES[specialistAgent.id] || { x: 128, y: 150 };
 
@@ -91,10 +84,11 @@ export async function runWorkflow(userMessage) {
         showSpeechBubble(specialistAgent.id, 'On it! 👍', 2000);
         moveCharacterHome('manager');
         
-        // Specialist walks to File Cabinet to inspect reference materials
+        // Specialist walks to workstation or archives to execute subtask
         moveCharacterTo(specialistAgent.id, locs.FILE_CABINET.x, locs.FILE_CABINET.y, 'working', async () => {
-          showSpeechBubble(specialistAgent.id, 'Gathering reference files... 📂', 3000);
-          // Execute with subagent's custom system prompt
+          showSpeechBubble(specialistAgent.id, `${specialistAgent.name} is on task... ⚙️`, 3000);
+          
+          // Execute with the chosen subagent's custom system prompt
           const specialistResponse = await llm.chat(
             [{ role: 'user', content: subTask }],
             specialistAgent.systemPrompt || `You are ${specialistAgent.name}, specialized in ${specialistAgent.role}.`
@@ -114,7 +108,12 @@ export async function runWorkflow(userMessage) {
               setTimeout(() => {
                 if (state.characters['manager']) state.characters['manager'].state = 'idle';
 
-                addChatMessage('ai', specialistResponse, 'ai', specialistAgent.spriteName || specialistAgent.id);
+                addChatMessage(
+                  specialistAgent.name,
+                  specialistResponse,
+                  'ai',
+                  specialistAgent.spriteName || specialistAgent.id
+                );
                 state.demoRunning = false;
               }, 1800);
             }, 1500);
@@ -125,10 +124,46 @@ export async function runWorkflow(userMessage) {
 
   } catch (error) {
     console.error('LLM Workflow Error:', error);
-    addChatMessage('ai', `⚠️ **API Error:** ${error.message}\n\nPlease verify your API key in Settings ⚙️.`, 'ai');
+    addChatMessage('System', `⚠️ **API Error:** ${error.message}\n\nPlease verify your API key in Settings ⚙️.`, 'ai');
     if (state.characters['manager']) state.characters['manager'].state = 'idle';
     state.demoRunning = false;
   }
+}
+
+/**
+ * Dynamic specialist evaluation for simulation / demo mode.
+ * Evaluates semantic relevance against each subagent's configured name, role, and system prompt.
+ */
+function selectSpecialistDynamically(userMessage, activeSpecialists) {
+  const promptTokens = (userMessage || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
+
+  let bestAgent = activeSpecialists[0];
+  let maxScore = -1;
+
+  activeSpecialists.forEach(agent => {
+    let score = 0;
+    const agentProfile = `${agent.name} ${agent.role} ${agent.systemPrompt || ''}`.toLowerCase();
+
+    promptTokens.forEach(token => {
+      if (token.length > 2 && agentProfile.includes(token)) {
+        score += 2;
+      }
+    });
+
+    if (score > maxScore) {
+      maxScore = score;
+      bestAgent = agent;
+    }
+  });
+
+  return bestAgent;
+}
+
+/**
+ * Generates a contextual simulated response using the configured agent's role & prompt
+ */
+function generateDynamicSimulatedResponse(agent, userMessage) {
+  return `### 📋 ${agent.name} (${agent.role}) Report\n\n**Assignment Summary:** "${truncate(userMessage, 40)}"\n\n**Specialist Execution:**\n- Processed in accordance with system prompt: *"${truncate(agent.systemPrompt || agent.role, 60)}"*.\n- Task synthesized and validated.\n\n*(Demo mode — configure your API key in Settings ⚙️ for live AI responses)*`;
 }
 
 // Simulated Demo Workflow Fallback using active configured subagents
@@ -139,13 +174,13 @@ function runDemoWorkflow(userMessage) {
   if (activeSpecialists.length === 0) {
     showSpeechBubble('manager', 'No subagents active, handling directly!', 2500);
     setTimeout(() => {
-      addChatMessage('ai', `I've analyzed your request "${truncate(userMessage, 40)}" as Manager.`, 'ai', 'character_dark_hair_boy');
+      addChatMessage('Manager', `I've analyzed your request "${truncate(userMessage, 40)}" as Manager.`, 'ai', 'character_dark_hair_boy');
       state.demoRunning = false;
     }, 1500);
     return;
   }
 
-  const chosen = activeSpecialists[Math.floor(Math.random() * activeSpecialists.length)];
+  const chosen = selectSpecialistDynamically(userMessage, activeSpecialists);
   const chosenHome = locs.CHARACTER_HOMES[chosen.id] || { x: 128, y: 150 };
 
   const steps = [
@@ -172,7 +207,7 @@ function runDemoWorkflow(userMessage) {
       action: () => {
         moveCharacterHome('manager');
         moveCharacterTo(chosen.id, locs.FILE_CABINET.x, locs.FILE_CABINET.y, 'working', () => {
-          showSpeechBubble(chosen.id, 'Analyzing archive files... 📂', 3000);
+          showSpeechBubble(chosen.id, `${chosen.name} is working on this task... ⚙️`, 3000);
         });
       }
     },
@@ -191,7 +226,7 @@ function runDemoWorkflow(userMessage) {
       action: () => {
         moveCharacterHome(chosen.id);
         if (state.characters['manager']) state.characters['manager'].state = 'idle';
-        addChatMessage('ai', `I've analyzed "${truncate(userMessage, 40)}" using the **${chosen.name}** subagent (${chosen.role}).\n\n*(Demo mode — configure your API key in Settings ⚙️ for live AI responses)*`, 'ai', chosen.spriteName || chosen.id);
+        addChatMessage(chosen.name, generateDynamicSimulatedResponse(chosen, userMessage), 'ai', chosen.spriteName || chosen.id);
         state.demoRunning = false;
       }
     }
