@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extracted Office Pixel Assets</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 32px;
+        }
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+        }
+        h1 { font-size: 2rem; color: #38bdf8; margin-bottom: 8px; }
+        header p { color: #94a3b8; }
+        .badge {
+            display: inline-block;
+            background: #0284c7;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-top: 10px;
+        }
+        .category-section { margin-bottom: 48px; }
+        .category-title {
+            font-size: 1.25rem;
+            color: #f43f5e;
+            text-transform: capitalize;
+            margin-bottom: 16px;
+            border-left: 4px solid #f43f5e;
+            padding-left: 12px;
+        }
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+        }
+        .asset-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .asset-card:hover {
+            transform: translateY(-3px);
+            border-color: #38bdf8;
+        }
+        .img-container {
+            width: 120px;
+            height: 120px;
+            background-image:
+                linear-gradient(45deg, #334155 25%, transparent 25%),
+                linear-gradient(-45deg, #334155 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #334155 75%),
+                linear-gradient(-45deg, transparent 75%, #334155 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+            background-color: #0f172a;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            border: 1px solid #475569;
+        }
+        .img-container img {
+            image-rendering: pixelated;
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
+        }
+        .asset-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            text-align: center;
+            word-break: break-word;
+            margin-bottom: 4px;
+        }
+        .asset-dim {
+            font-size: 0.75rem;
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Extracted Office Pixel Assets</h1>
+        <p>Individual sprites cut from PixelOfficeAssets.png with transparent backgrounds</p>
+        <div class="badge">Total: 60 sprites</div>
+    </header>
+    
+    <section class="category-section">
+        <h2 class="category-title">Environment</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="environment/sky_with_clouds.png" alt="sky_with_clouds" loading="lazy">
+                </div>
+                <div class="asset-name">sky_with_clouds</div>
+                <div class="asset-dim">256 × 38 px</div>
+            </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">Furniture</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/chair_red.png" alt="chair_red" loading="lazy">
+                </div>
+                <div class="asset-name">chair_red</div>
+                <div class="asset-dim">11 × 22 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/chair_orange.png" alt="chair_orange" loading="lazy">
+                </div>
+                <div class="asset-name">chair_orange</div>
+                <div class="asset-dim">11 × 22 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/chair_green.png" alt="chair_green" loading="lazy">
+                </div>
+                <div class="asset-name">chair_green</div>
+                <div class="asset-dim">11 × 22 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/chair_blue.png" alt="chair_blue" loading="lazy">
+                </div>
+                <div class="asset-name">chair_blue</div>
+                <div class="asset-dim">11 × 22 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/chair_purple.png" alt="chair_purple" loading="lazy">
+                </div>
+                <div class="asset-name">chair_purple</div>
+                <div class="asset-dim">11 × 22 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/chair_grey.png" alt="chair_grey" loading="lazy">
+                </div>
+                <div class="asset-name">chair_grey</div>
+                <div class="asset-dim">11 × 22 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/desk_long_blue.png" alt="desk_long_blue" loading="lazy">
+                </div>
+                <div class="asset-name">desk_long_blue</div>
+                <div class="asset-dim">79 × 17 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/table_small_orange.png" alt="table_small_orange" loading="lazy">
+                </div>
+                <div class="asset-name">table_small_orange</div>
+                <div class="asset-dim">26 × 16 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/sofa_red.png" alt="sofa_red" loading="lazy">
+                </div>
+                <div class="asset-name">sofa_red</div>
+                <div class="asset-dim">40 × 16 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/sofa_blue.png" alt="sofa_blue" loading="lazy">
+                </div>
+                <div class="asset-name">sofa_blue</div>
+                <div class="asset-dim">33 × 15 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/sofa_light_blue.png" alt="sofa_light_blue" loading="lazy">
+                </div>
+                <div class="asset-name">sofa_light_blue</div>
+                <div class="asset-dim">33 × 16 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/sofa_green.png" alt="sofa_green" loading="lazy">
+                </div>
+                <div class="asset-name">sofa_green</div>
+                <div class="asset-dim">33 × 16 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="furniture/sofa_orange.png" alt="sofa_orange" loading="lazy">
+                </div>
+                <div class="asset-name">sofa_orange</div>
+                <div class="asset-dim">33 × 16 px</div>
+            </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">Doors And Windows</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="doors_and_windows/door_panel_left.png" alt="door_panel_left" loading="lazy">
+                </div>
+                <div class="asset-name">door_panel_left</div>
+                <div class="asset-dim">17 × 19 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="doors_and_windows/door_frame_divider.png" alt="door_frame_divider" loading="lazy">
+                </div>
+                <div class="asset-name">door_frame_divider</div>
+                <div class="asset-dim">4 × 27 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="doors_and_windows/door_panel_right.png" alt="door_panel_right" loading="lazy">
+                </div>
+                <div class="asset-name">door_panel_right</div>
+                <div class="asset-dim">17 × 19 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="doors_and_windows/window_double_blue.png" alt="window_double_blue" loading="lazy">
+                </div>
+                <div class="asset-name">window_double_blue</div>
+                <div class="asset-dim">26 × 21 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="doors_and_windows/window_with_notes.png" alt="window_with_notes" loading="lazy">
+                </div>
+                <div class="asset-name">window_with_notes</div>
+                <div class="asset-dim">26 × 21 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="doors_and_windows/glass_door_tall.png" alt="glass_door_tall" loading="lazy">
+                </div>
+                <div class="asset-name">glass_door_tall</div>
+                <div class="asset-dim">16 × 31 px</div>
+            </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">Decor</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/potted_plant.png" alt="potted_plant" loading="lazy">
+                </div>
+                <div class="asset-name">potted_plant</div>
+                <div class="asset-dim">14 × 19 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/wall_calendar.png" alt="wall_calendar" loading="lazy">
+                </div>
+                <div class="asset-name">wall_calendar</div>
+                <div class="asset-dim">17 × 11 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/flag_india.png" alt="flag_india" loading="lazy">
+                </div>
+                <div class="asset-name">flag_india</div>
+                <div class="asset-dim">12 × 9 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/flag_uk.png" alt="flag_uk" loading="lazy">
+                </div>
+                <div class="asset-name">flag_uk</div>
+                <div class="asset-dim">12 × 9 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/flag_usa.png" alt="flag_usa" loading="lazy">
+                </div>
+                <div class="asset-name">flag_usa</div>
+                <div class="asset-dim">12 × 9 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/framed_art_sunset.png" alt="framed_art_sunset" loading="lazy">
+                </div>
+                <div class="asset-name">framed_art_sunset</div>
+                <div class="asset-dim">11 × 8 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/coat_rack.png" alt="coat_rack" loading="lazy">
+                </div>
+                <div class="asset-name">coat_rack</div>
+                <div class="asset-dim">6 × 19 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="decor/building_tower.png" alt="building_tower" loading="lazy">
+                </div>
+                <div class="asset-name">building_tower</div>
+                <div class="asset-dim">5 × 12 px</div>
+            </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">Walls</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="walls/wall_partition_blue.png" alt="wall_partition_blue" loading="lazy">
+                </div>
+                <div class="asset-name">wall_partition_blue</div>
+                <div class="asset-dim">73 × 24 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="walls/wall_partition_white.png" alt="wall_partition_white" loading="lazy">
+                </div>
+                <div class="asset-name">wall_partition_white</div>
+                <div class="asset-dim">26 × 20 px</div>
+            </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">Appliances</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/water_cooler.png" alt="water_cooler" loading="lazy">
+                </div>
+                <div class="asset-name">water_cooler</div>
+                <div class="asset-dim">7 × 11 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/water_dispenser.png" alt="water_dispenser" loading="lazy">
+                </div>
+                <div class="asset-name">water_dispenser</div>
+                <div class="asset-dim">15 × 19 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/vending_machine.png" alt="vending_machine" loading="lazy">
+                </div>
+                <div class="asset-name">vending_machine</div>
+                <div class="asset-dim">24 × 34 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/refrigerator_drinks.png" alt="refrigerator_drinks" loading="lazy">
+                </div>
+                <div class="asset-name">refrigerator_drinks</div>
+                <div class="asset-dim">24 × 31 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/trash_bin_blue.png" alt="trash_bin_blue" loading="lazy">
+                </div>
+                <div class="asset-name">trash_bin_blue</div>
+                <div class="asset-dim">9 × 17 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/trash_bin_green.png" alt="trash_bin_green" loading="lazy">
+                </div>
+                <div class="asset-name">trash_bin_green</div>
+                <div class="asset-dim">9 × 14 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/trash_bin_red.png" alt="trash_bin_red" loading="lazy">
+                </div>
+                <div class="asset-name">trash_bin_red</div>
+                <div class="asset-dim">9 × 14 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="appliances/trash_bin_purple.png" alt="trash_bin_purple" loading="lazy">
+                </div>
+                <div class="asset-name">trash_bin_purple</div>
+                <div class="asset-dim">9 × 14 px</div>
+            </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">Electronics</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/smartphone.png" alt="smartphone" loading="lazy">
+                </div>
+                <div class="asset-name">smartphone</div>
+                <div class="asset-dim">6 × 8 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/tablet.png" alt="tablet" loading="lazy">
+                </div>
+                <div class="asset-name">tablet</div>
+                <div class="asset-dim">6 × 8 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/coffee_mug.png" alt="coffee_mug" loading="lazy">
+                </div>
+                <div class="asset-name">coffee_mug</div>
+                <div class="asset-dim">8 × 7 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/paper_stack_white.png" alt="paper_stack_white" loading="lazy">
+                </div>
+                <div class="asset-name">paper_stack_white</div>
+                <div class="asset-dim">6 × 8 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/paper_stack_red.png" alt="paper_stack_red" loading="lazy">
+                </div>
+                <div class="asset-name">paper_stack_red</div>
+                <div class="asset-dim">6 × 9 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/printer_scanner.png" alt="printer_scanner" loading="lazy">
+                </div>
+                <div class="asset-name">printer_scanner</div>
+                <div class="asset-dim">9 × 9 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/color_dot_yellow.png" alt="color_dot_yellow" loading="lazy">
+                </div>
+                <div class="asset-name">color_dot_yellow</div>
+                <div class="asset-dim">2 × 3 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/digital_clock.png" alt="digital_clock" loading="lazy">
+                </div>
+                <div class="asset-name">digital_clock</div>
+                <div class="asset-dim">19 × 6 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/color_dot_green.png" alt="color_dot_green" loading="lazy">
+                </div>
+                <div class="asset-name">color_dot_green</div>
+                <div class="asset-dim">2 × 3 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/color_dot_red.png" alt="color_dot_red" loading="lazy">
+                </div>
+                <div class="asset-name">color_dot_red</div>
+                <div class="asset-dim">2 × 3 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/id_card_red.png" alt="id_card_red" loading="lazy">
+                </div>
+                <div class="asset-name">id_card_red</div>
+                <div class="asset-dim">11 × 8 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/id_card_blue.png" alt="id_card_blue" loading="lazy">
+                </div>
+                <div class="asset-name">id_card_blue</div>
+                <div class="asset-dim">11 × 8 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/id_card_green.png" alt="id_card_green" loading="lazy">
+                </div>
+                <div class="asset-name">id_card_green</div>
+                <div class="asset-dim">11 × 8 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/color_dot_small.png" alt="color_dot_small" loading="lazy">
+                </div>
+                <div class="asset-name">color_dot_small</div>
+                <div class="asset-dim">4 × 3 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="electronics/card_reader.png" alt="card_reader" loading="lazy">
+                </div>
+                <div class="asset-name">card_reader</div>
+                <div class="asset-dim">10 × 6 px</div>
+            </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">Characters</h2>
+        <div class="asset-grid">
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="characters/character_red_hair_girl.png" alt="character_red_hair_girl" loading="lazy">
+                </div>
+                <div class="asset-name">character_red_hair_girl</div>
+                <div class="asset-dim">19 × 24 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="characters/character_dark_hair_boy.png" alt="character_dark_hair_boy" loading="lazy">
+                </div>
+                <div class="asset-name">character_dark_hair_boy</div>
+                <div class="asset-dim">15 × 23 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="characters/character_glasses_boy.png" alt="character_glasses_boy" loading="lazy">
+                </div>
+                <div class="asset-name">character_glasses_boy</div>
+                <div class="asset-dim">13 × 21 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="characters/cat_black.png" alt="cat_black" loading="lazy">
+                </div>
+                <div class="asset-name">cat_black</div>
+                <div class="asset-dim">16 × 13 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="characters/character_blue_shirt_girl.png" alt="character_blue_shirt_girl" loading="lazy">
+                </div>
+                <div class="asset-name">character_blue_shirt_girl</div>
+                <div class="asset-dim">17 × 23 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="characters/character_dark_hair_girl.png" alt="character_dark_hair_girl" loading="lazy">
+                </div>
+                <div class="asset-name">character_dark_hair_girl</div>
+                <div class="asset-dim">17 × 23 px</div>
+            </div>
+            <div class="asset-card">
+                <div class="img-container">
+                    <img src="characters/dog_corgi.png" alt="dog_corgi" loading="lazy">
+                </div>
+                <div class="asset-name">dog_corgi</div>
+                <div class="asset-dim">24 × 11 px</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
