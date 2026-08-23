@@ -321,6 +321,14 @@ body {
   transition: transform var(--transition-fast);
 }
 
+.btn-label-full {
+  display: inline;
+}
+
+.btn-label-short {
+  display: none;
+}
+
 .btn-team-setup:hover {
   background: linear-gradient(180deg, #6366f1, #4338ca);
   color: #ffffff;
@@ -332,10 +340,64 @@ body {
   box-shadow: 0 0 0 var(--border-dark);
 }
 
+/* ── Mobile Mode Switcher Bar ────────────────────────────── */
+.mobile-view-bar {
+  display: none;
+  height: 40px;
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--border-dark);
+  box-shadow: 0 2px 0 var(--border);
+  padding: 4px 10px;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 80;
+}
+
+.mobile-tab-btn {
+  flex: 1;
+  max-width: 150px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-dark);
+  box-shadow: var(--pixel-bevel-out);
+  color: var(--text-secondary);
+  font-family: var(--font-pixel-heading);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all var(--transition-fast);
+  padding: 0 6px;
+}
+
+.mobile-tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.mobile-tab-btn.active {
+  background: var(--accent);
+  color: #04060a;
+  border-color: var(--border-dark);
+  box-shadow: var(--pixel-bevel-in);
+  font-weight: 700;
+}
+
+.mobile-tab-btn .tab-icon {
+  font-size: 11px;
+}
+
 /* ── Main Content Area ─────────────────────────────────────── */
 .main-content {
   display: flex;
   height: calc(100vh - var(--navbar-height));
+  height: calc(100dvh - var(--navbar-height));
   overflow: hidden;
   background: var(--bg-primary);
 }
@@ -1295,24 +1357,295 @@ kbd {
 [data-theme="dark"] .icon-sun { display: none; }
 
 /* ── Responsive Adaptations ────────────────────────────────── */
+
+/* Tablets & Small Laptops / Mobile Screens */
 @media (max-width: 900px) {
+  :root {
+    --navbar-height: 52px;
+  }
+
+  .mobile-view-bar {
+    display: flex;
+  }
+
   .main-content {
     flex-direction: column;
+    height: calc(100vh - var(--navbar-height) - 40px);
+    height: calc(100dvh - var(--navbar-height) - 40px);
   }
-  .office-panel {
-    min-width: unset;
-    flex: 1;
-    border-right: none;
-    border-bottom: 3px solid var(--border-dark);
-  }
-  .chat-panel {
-    min-width: unset;
-    flex: 1;
-  }
+
   .panel-divider {
-    display: none;
+    display: none !important;
   }
+
   .nav-center {
     display: none;
   }
+
+  .btn-label-full {
+    display: none;
+  }
+
+  .btn-label-short {
+    display: inline;
+  }
+
+  /* View Modes on Mobile / Tablet */
+  .main-content.view-mode-split .office-panel {
+    display: flex;
+    flex: 0.95;
+    min-width: unset;
+    min-height: 180px;
+    max-height: 48vh;
+    border-right: none;
+    border-bottom: 3px solid var(--border-dark);
+  }
+
+  .main-content.view-mode-split .chat-panel {
+    display: flex;
+    flex: 1.05;
+    min-width: unset;
+    min-height: 200px;
+  }
+
+  .main-content.view-mode-office .office-panel {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .main-content.view-mode-office .chat-panel {
+    display: none !important;
+  }
+
+  .main-content.view-mode-chat .office-panel {
+    display: none !important;
+  }
+
+  .main-content.view-mode-chat .chat-panel {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    min-width: unset;
+  }
+
+  .canvas-wrapper {
+    margin: 6px;
+  }
+
+  .floating-zoom-controls {
+    bottom: 8px;
+    right: 8px;
+    padding: 3px;
+    gap: 3px;
+  }
+
+  .chat-messages {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+
+  .modal-overlay,
+  .team-modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-card,
+  .team-modal-container {
+    width: 96vw;
+    max-height: 90vh;
+    max-height: 90dvh;
+  }
 }
+
+/* Mobile Screens (<= 640px) */
+@media (max-width: 640px) {
+  :root {
+    --navbar-height: 48px;
+  }
+
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .logo-text {
+    font-size: 11px;
+  }
+
+  .pixel-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .btn-team-setup {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 10px;
+    gap: 5px;
+  }
+
+  .floating-zoom-controls {
+    bottom: 6px;
+    right: 6px;
+  }
+
+  .btn-zoom {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .zoom-level {
+    font-size: 12px;
+    min-width: 36px;
+  }
+
+  .message {
+    max-width: 96%;
+    gap: 8px;
+  }
+
+  .message-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .message-content {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .chat-input-area {
+    padding: 8px 10px;
+  }
+
+  .btn-voice,
+  .btn-send {
+    width: 32px;
+    height: 32px;
+  }
+
+  .message-input {
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  /* Team Modal Mobile Optimization */
+  .team-modal-header {
+    padding: 10px 12px;
+  }
+
+  .team-modal-header .modal-title {
+    font-size: 10px;
+  }
+
+  .team-modal-header .modal-subtitle {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .team-modal-body {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .agent-card-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .agent-sprite-preview-box {
+    align-self: flex-start;
+    width: 48px;
+    height: 48px;
+  }
+
+  .field-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .team-modal-footer {
+    flex-direction: column-reverse;
+    gap: 8px;
+    align-items: stretch;
+    padding: 10px 12px;
+  }
+
+  .footer-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .btn-secondary,
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Settings Modal Mobile Optimization */
+  .modal-form-group {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .modal-description {
+    padding: 12px 12px 0;
+    font-size: 11px;
+  }
+}
+
+/* Compact Mobile Screens (<= 420px) */
+@media (max-width: 420px) {
+  .navbar {
+    padding: 0 6px;
+  }
+
+  .nav-brand {
+    gap: 6px;
+  }
+
+  .logo-text {
+    font-size: 10px;
+  }
+
+  .nav-actions {
+    gap: 4px;
+  }
+
+  .btn-team-setup {
+    padding: 0 6px;
+  }
+
+  .btn-label-short {
+    display: none;
+  }
+
+  .mobile-tab-btn {
+    font-size: 9px;
+    padding: 0 4px;
+    gap: 4px;
+  }
+
+  .input-hint {
+    display: none;
+  }
+
+  .speech-bubble {
+    max-width: 130px;
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}
+

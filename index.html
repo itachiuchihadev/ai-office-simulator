@@ -124,7 +124,8 @@
     <div class="nav-actions">
       <button class="btn-team-setup" id="teamSetupToggle" title="Configure Subagents & Custom Prompts">
         <span class="team-btn-icon">👥</span>
-        <span class="btn-label">SUBAGENTS</span>
+        <span class="btn-label-full">SUBAGENTS</span>
+        <span class="btn-label-short">TEAM</span>
       </button>
       <button class="btn-icon" id="settingsToggle" title="API Settings & Key Setup" aria-label="Settings">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
@@ -151,8 +152,24 @@
     </div>
   </nav>
 
+  <!-- Mobile View Switcher (Visible on mobile/tablet viewports <= 900px) -->
+  <div class="mobile-view-bar" id="mobileViewBar" role="tablist" aria-label="Mobile View Switcher">
+    <button class="mobile-tab-btn active" id="tabModeSplit" data-mode="split" role="tab" aria-selected="true">
+      <span class="tab-icon">◫</span>
+      <span class="tab-label">SPLIT VIEW</span>
+    </button>
+    <button class="mobile-tab-btn" id="tabModeOffice" data-mode="office" role="tab" aria-selected="false">
+      <span class="tab-icon">🏢</span>
+      <span class="tab-label">OFFICE</span>
+    </button>
+    <button class="mobile-tab-btn" id="tabModeChat" data-mode="chat" role="tab" aria-selected="false">
+      <span class="tab-icon">💬</span>
+      <span class="tab-label">CHAT</span>
+    </button>
+  </div>
+
   <!-- Main Content Area -->
-  <main class="main-content" id="mainContent">
+  <main class="main-content view-mode-split" id="mainContent">
     <!-- Left Panel: 2D Office Visualization (Clean Full Height) -->
     <section class="office-panel" id="officePanel">
       <div class="canvas-wrapper" id="canvasWrapper">

@@ -9,6 +9,7 @@ export function setupPanelResize() {
   let dragging = false;
 
   divider.addEventListener('mousedown', (e) => {
+    if (window.innerWidth <= 900) return;
     dragging = true;
     divider.classList.add('dragging');
     document.body.style.cursor = 'col-resize';
