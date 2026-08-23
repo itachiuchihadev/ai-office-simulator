@@ -1,4 +1,4 @@
-// js/office/rooms.js — Office locations, character homes, break areas, file storage & navigation waypoints
+// js/office/rooms.js — Dynamic office waypoints, character homes, break areas & navigation points
 
 import { state } from '../config.js';
 
@@ -38,29 +38,3 @@ export function getOfficeLocations() {
     DOOR_ENTRANCE:   { x: midX, y: 114, label: 'Office Main Entrance' },
   };
 }
-
-// Backwards compatibility
-export const CHARACTER_HOMES = {
-  'manager':    { x: 40,  y: 186, label: "Manager's Suite" },
-  'researcher': { x: 105, y: 148, label: 'Research Desk' },
-  'coder':      { x: 105, y: 178, label: 'Code Desk' },
-  'writer':     { x: 195, y: 148, label: 'Docs Desk' },
-  'analyst':    { x: 195, y: 178, label: 'Analytics Desk' },
-  'designer':   { x: 105, y: 208, label: 'Design Desk' },
-};
-
-export const DESK_POSITIONS = CHARACTER_HOMES;
-export const ROOMS = [];
-export const OFFICE_LOCATIONS = {
-  FILE_CABINET:    { x: 232, y: 114, label: 'File Archive' },
-  PRINTER_STATION: { x: 195, y: 208, label: 'Printer & Scanner' },
-  COFFEE_BAR:      { x: 46,  y: 114, label: 'Coffee & Drinks' },
-  VENDING_MACHINE: { x: 18,  y: 114, label: 'Snack Vending' },
-  LOUNGE_SOFA:     { x: 195, y: 114, label: 'Lounge Sofa' },
-  PET_AREA:        { x: 112, y: 208, label: 'Office Pets' },
-  MEETING_CENTER:  { x: 128, y: 165, label: 'Central Collaboration Area' },
-  DOOR_ENTRANCE:   { x: 128, y: 114, label: 'Office Main Entrance' },
-};
-export const STORAGE_ENTRANCE = OFFICE_LOCATIONS.FILE_CABINET;
-export const CORRIDOR_Y = 114;
-export const AISLE_X = 128;

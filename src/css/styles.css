@@ -797,7 +797,15 @@ body {
 .btn-voice.recording {
   background: var(--danger);
   color: white;
+  border-color: #ff4444;
   animation: square-blink 0.5s steps(2) infinite;
+}
+
+.btn-voice.transcribing {
+  background: var(--warning);
+  color: #000;
+  border-color: #facc15;
+  animation: pulse-glow 0.8s ease-in-out infinite;
 }
 
 .message-input {

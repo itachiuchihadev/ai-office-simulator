@@ -1,32 +1,6 @@
-// js/office/characters.js — Character sprite drawing, strictly orthogonal movement, A* pathfinding & speech bubbles
-
-import { state, AGENTS } from '../config.js';
+import { state } from '../config.js';
 import { getOfficeLocations } from './rooms.js';
 import { findPathAStar } from './navigation-grid.js';
-
-// ── Character Initialization ─────────────────────────────
-
-export function initCharacters() {
-  const locs = getOfficeLocations();
-  AGENTS.forEach(agent => {
-    const existing = state.characters[agent.id];
-    const home = locs.CHARACTER_HOMES[agent.id] || { x: 128, y: 114 };
-    state.characters[agent.id] = {
-      ...agent,
-      ...(existing || {}),
-      x: home.x,
-      y: home.y,
-      targetX: home.x,
-      targetY: home.y,
-      state: 'idle',
-      bobOffset: existing?.bobOffset || Math.random() * Math.PI * 2,
-      path: [],
-      pathIndex: 0,
-      speed: 1.0,
-      facing: 'down',
-    };
-  });
-}
 
 // ── Movement & A* Navigation Algorithm ───────────────────
 

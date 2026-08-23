@@ -1,8 +1,6 @@
-// js/main.js — Application entry point
-
 import { state } from './config.js';
 import { initCanvasSize, startRenderLoop, setZoom } from './office/renderer.js';
-import { initCharacters, startIdleAnimations } from './office/characters.js';
+import { startIdleAnimations } from './office/characters.js';
 import { applyActiveSubagentsToState } from './agents/subagent-manager.js';
 import { setupChatInput } from './chat/chat-ui.js';
 import { setupVoiceInput } from './chat/voice-input.js';
@@ -39,9 +37,8 @@ function init() {
   if (!state.canvas) return;
   state.ctx = state.canvas.getContext('2d');
 
-  // Initialize subagents from storage/defaults and place them at desks
+  // Initialize active subagents and place on canvas
   applyActiveSubagentsToState();
-  initCharacters();
   initCanvasSize();
 
   setupZoomControls();

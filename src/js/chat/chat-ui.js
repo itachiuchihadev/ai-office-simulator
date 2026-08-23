@@ -1,44 +1,20 @@
 import { runWorkflow } from '../agents/workflow.js';
 
-const CHARACTER_SPRITES = {
-  'manager': '/assets/extracted_assets/all/character_dark_hair_boy.png',
-  'researcher': '/assets/extracted_assets/all/character_glasses_boy.png',
-  'coder': '/assets/extracted_assets/all/character_dark_hair_girl.png',
-  'writer': '/assets/extracted_assets/all/character_red_hair_girl.png',
-  'analyst': '/assets/extracted_assets/all/character_blue_shirt_girl.png',
-  'designer': '/assets/extracted_assets/all/character_designer_girl.png',
-  'character_dark_hair_boy': '/assets/extracted_assets/all/character_dark_hair_boy.png',
-  'character_glasses_boy': '/assets/extracted_assets/all/character_glasses_boy.png',
-  'character_dark_hair_girl': '/assets/extracted_assets/all/character_dark_hair_girl.png',
-  'character_red_hair_girl': '/assets/extracted_assets/all/character_red_hair_girl.png',
-  'character_blue_shirt_girl': '/assets/extracted_assets/all/character_blue_shirt_girl.png',
-  'character_designer_girl': '/assets/extracted_assets/all/character_designer_girl.png',
-  'character_blond_boy': '/assets/extracted_assets/all/character_blond_boy.png',
-  '🧑‍💼': '/assets/extracted_assets/all/character_dark_hair_boy.png',
-  '🔬': '/assets/extracted_assets/all/character_glasses_boy.png',
-  '👨‍💻': '/assets/extracted_assets/all/character_dark_hair_girl.png',
-  '✍️': '/assets/extracted_assets/all/character_red_hair_girl.png',
-  '📊': '/assets/extracted_assets/all/character_blue_shirt_girl.png',
-  '🎨': '/assets/extracted_assets/all/character_designer_girl.png',
-  'user': '/assets/extracted_assets/all/user_avatar.png',
-  '👤': '/assets/extracted_assets/all/user_avatar.png',
-};
+const DEFAULT_AVATAR = '/assets/extracted_assets/all/character_dark_hair_boy.png';
+const USER_AVATAR = '/assets/extracted_assets/all/user_avatar.png';
 
 export function getAvatarSpriteUrl(identifier, type = 'ai') {
-  if (type === 'user') {
-    return '/assets/extracted_assets/all/user_avatar.png';
+  if (type === 'user' || identifier === 'user') {
+    return USER_AVATAR;
   }
-  if (!identifier) {
-    return '/assets/extracted_assets/all/character_dark_hair_boy.png';
+  if (!identifier || identifier === 'manager') {
+    return DEFAULT_AVATAR;
   }
   if (typeof identifier === 'object' && identifier.spriteName) {
     identifier = identifier.spriteName;
   }
   if (identifier.startsWith('/') || identifier.startsWith('http') || identifier.startsWith('data:')) {
     return identifier;
-  }
-  if (CHARACTER_SPRITES[identifier]) {
-    return CHARACTER_SPRITES[identifier];
   }
   return `/assets/extracted_assets/all/${identifier}.png`;
 }
