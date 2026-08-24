@@ -1323,6 +1323,57 @@ kbd {
   box-shadow: 0 0 0 var(--border-dark);
 }
 
+.btn-sync-models {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--accent);
+  font-family: var(--font-pixel-heading);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  cursor: pointer;
+  box-shadow: var(--pixel-shadow);
+  transition: all var(--transition-fast);
+}
+
+.btn-sync-models:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  transform: translate(-1px, -1px);
+}
+
+.btn-sync-models:active {
+  transform: translate(1px, 1px);
+}
+
+.model-fetch-status {
+  font-family: var(--font-pixel-body);
+  font-size: 11px;
+  min-height: 16px;
+  margin-top: 5px;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.model-fetch-status.loading {
+  color: var(--accent);
+  animation: pulse-status 1.2s infinite ease-in-out;
+}
+
+.model-fetch-status.success {
+  color: var(--accent-green);
+}
+
+.model-fetch-status.error {
+  color: #ef4444;
+}
+
+@keyframes pulse-status {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+
 /* Toast Notifications (Pixel Banner) */
 .toast-notification {
   position: fixed;

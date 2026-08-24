@@ -13,3 +13,19 @@ export function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
+
+export function showToast(msg) {
+  const existing = document.querySelectorAll('.toast-notification');
+  existing.forEach(t => t.remove());
+
+  const toast = document.createElement('div');
+  toast.className = 'toast-notification';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('fade-out');
+    setTimeout(() => toast.remove(), 400);
+  }, 3000);
+}
+
+

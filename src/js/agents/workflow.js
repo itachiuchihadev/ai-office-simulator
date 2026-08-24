@@ -13,17 +13,20 @@ export async function runWorkflow(userMessage) {
   state.demoRunning = true;
 
   const modelSelector = document.getElementById('modelSelector');
-  const selectedModel = modelSelector ? modelSelector.value : 'gemini-2.5-flash';
+  const selectedModel = modelSelector ? modelSelector.value : '';
 
   let provider = 'gemini';
-  if (selectedModel.startsWith('gpt')) provider = 'openai';
-  if (selectedModel.startsWith('claude')) provider = 'anthropic';
+  if (selectedModel.startsWith('gpt') || selectedModel.startsWith('o1') || selectedModel.startsWith('o3')) {
+    provider = 'openai';
+  } else if (selectedModel.startsWith('claude')) {
+    provider = 'anthropic';
+  }
 
   const keys = getStoredApiKeys();
   const apiKey = keys[provider] || keys.gemini || keys.openai;
 
-  // Fallback to Demo Simulation if no API Key configured
-  if (!apiKey) {
+  // Fallback to Demo Simulation if no API Key or no Model configured
+  if (!apiKey || !selectedModel) {
     runDemoWorkflow(userMessage);
     return;
   }

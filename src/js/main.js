@@ -10,6 +10,8 @@ import { setupPanelResize } from './ui/panel-resize.js';
 import { setupResponsiveControls } from './ui/responsive.js';
 import { setupSettingsModal } from './ui/settings-modal.js';
 import { setupTeamModal } from './ui/team-modal.js';
+import { initModelSelector } from './api/llm-client.js';
+
 
 function setupZoomControls() {
   const zoomIn = document.getElementById('zoomInBtn');
@@ -92,7 +94,9 @@ function init() {
   setupPanelResize();
   setupResponsiveControls();
   setupSettingsModal();
+  initModelSelector();
   setupChatInput();
+
   setupVoiceInput();
 
   startRenderLoop();

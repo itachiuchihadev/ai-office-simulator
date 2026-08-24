@@ -111,7 +111,8 @@ export function setupVoiceInput() {
             throw new Error('Please configure your Gemini or OpenAI API Key in Settings ⚙️ for AI audio transcription.');
           }
 
-          const llm = new LLMClient(provider, apiKey);
+          const selectedModel = document.getElementById('modelSelector')?.value || '';
+          const llm = new LLMClient(provider, apiKey, selectedModel);
           const transcription = await llm.transcribeAudio(audioBlob);
 
           if (transcription) {
