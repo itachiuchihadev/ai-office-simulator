@@ -7,6 +7,7 @@ import { addChatMessage } from '../chat/chat-ui.js';
 import { LLMClient } from '../api/llm-client.js';
 import { ManagerDelegationSchema } from '../api/schemas.js';
 import { getStoredApiKeys } from '../ui/settings-modal.js';
+import { trackMetric } from '../telemetry.js';
 
 export async function runWorkflow(userMessage) {
   if (state.demoRunning) return;
@@ -14,6 +15,9 @@ export async function runWorkflow(userMessage) {
 
   const modelSelector = document.getElementById('modelSelector');
   const selectedModel = modelSelector ? modelSelector.value : '';
+
+  // Track chat usage metric (IP recorded on Cloudflare server, prompt text is NEVER sent)
+  trackMetric('chat', { model: selectedModel || 'demo-mode' });
 
   let provider = 'gemini';
   if (selectedModel.startsWith('gpt') || selectedModel.startsWith('o1') || selectedModel.startsWith('o3')) {

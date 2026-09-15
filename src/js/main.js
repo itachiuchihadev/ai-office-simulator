@@ -11,6 +11,7 @@ import { setupResponsiveControls } from './ui/responsive.js';
 import { setupSettingsModal } from './ui/settings-modal.js';
 import { setupTeamModal } from './ui/team-modal.js';
 import { initModelSelector } from './api/llm-client.js';
+import { trackMetric } from './telemetry.js';
 
 
 function setupZoomControls() {
@@ -101,6 +102,9 @@ function init() {
 
   startRenderLoop();
   startIdleAnimations();
+
+  // Track initial page visit anonymously
+  trackMetric('page_visit');
 
   window.addEventListener('resize', initCanvasSize);
 }
